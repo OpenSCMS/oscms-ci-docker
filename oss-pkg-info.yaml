@@ -1,0 +1,5 @@
+Open Source Software Package:
+- name: oscms-ci-docker
+  source: https://github.com/openscms/oscms-ci-docker
+  license: Apache-2.0
+
