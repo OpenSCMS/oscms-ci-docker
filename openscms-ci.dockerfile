@@ -31,7 +31,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy && \
     pipx \
     python3 \
     curl \
-    cmake
+    cmake \
+    valgrind
 
 # Install anything we might need to compile successfully
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install \
