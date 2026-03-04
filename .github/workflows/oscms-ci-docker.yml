@@ -71,13 +71,11 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: .
-          provenance: mode=max
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=registry,ref=${{ env.CI_REGISTRY_IMAGE }}:latest
           file: openscms-ci.dockerfile
-          load: false
 
       - name: Image digest
         run: echo ${{ steps.push.outputs.digest }}
