@@ -50,13 +50,18 @@ This will place you in a `bash` shell within the container, with your cloned sou
 
 ## Pulling the image from GitHub
 
+The image is published on `ghcr.io` as a public image. Simply pull it as follows
+
 ```bash
-docker login ghcr.io -u YOUR_GITHUB_USERNAME
-# When prompted for a password, paste your Personal Access Token (PAT)
-docker pull ghcr.io/OpenSCMS/oscms-ci-docker/oscms-ci-docker:latest
+docker pull ghcr.io/openscms/oscms-ci-docker:latest
 ```
 
-You can then run it as shown above.
+You can then run it as shown below.
+
+```bash
+docker run -ti --rm --volume $PWD:/WORK --user $(id -u):$(id -g) \
+       ghcr.io/openscms/oscms-ci-docker:latest
+```
 
 ## Contributing
 
