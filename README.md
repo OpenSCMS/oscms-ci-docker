@@ -19,17 +19,20 @@ SPDX-License-Identifier: Apache-2.0
 <!-- omit from toc -->
 # oscms-ci-docker
 
-This repository provides a docker container/image which is primarily used for CI purposes in the other code repositories of the Open SCMS project. It can also be used for local development (to avoid installing all the build dependencies on your host system), and potentially as a `VS Code` development container.
+This repository provides docker images which ire primarily used for CI purposes in the other code repositories of the Open SCMS project. They can also be used for local development (to avoid installing all the build dependencies on your host system), and potentially as a `VS Code` development containers.
+
+* `oscms-ci-docker` is used for all of the C and C++ based repositories.
+* `oscms-server-ci-docker` is used for the Rust OpenSCMS repository. This is missing tools such as `valgrind` and `cppcheck`
 
 <!-- omit from toc -->
 ## Table of Contents
 
-- [Building the image and using it locally](#building-the-image-and-using-it-locally)
-- [Pulling the image from GitHub](#pulling-the-image-from-github)
-- [Contributing](#contributing)
-- [License](#license)
+* [Building an image and using it locally](#building-an-image-and-using-it-locally)
+* [Pulling the images from GitHub](#pulling-the-images-from-github)
+* [Contributing](#contributing)
+* [License](#license)
 
-## Building the image and using it locally
+## Building an image and using it locally
 
 Clone the repository and build the image
 
@@ -37,23 +40,32 @@ Clone the repository and build the image
 git clone git@github.com:OpenSCMS/oscms-ci-docker.git
 cd oscms-ci-docker
 docker build -t oscms-ci-docker . -f openscms-ci.dockerfile
+docker build -t oscms-server-ci-docker . -f openscms-server-ci.dockerfile
 ```
 
-Now change to the directory where you cloned the code repositories and run the container thus
+Now change to the directory where you cloned the code repositories and run the container. Either
 
 ```bash
 docker run -ti --rm --volume $PWD:/WORK --user $(id -u):$(id -g) \
        oscms-ci-docker
 ```
 
+or
+
+```bash
+docker run -ti --rm --volume $PWD:/WORK --user $(id -u):$(id -g) \
+       oscms-server-ci-docker
+```
+
 This will place you in a `bash` shell within the container, with your cloned source available at `/WORK`. Your user inside the container will have the same group and user id as on your host, so any changes you make will have the correct permissions.
 
-## Pulling the image from GitHub
+## Pulling the images from GitHub
 
-The image is published on `ghcr.io` as a public image. Simply pull it as follows
+The images are published on `ghcr.io` as a public images. Simply pull them as follows
 
 ```bash
 docker pull ghcr.io/openscms/oscms-ci-docker:latest
+docker pull ghcr.io/openscms/oscms-server-ci-docker:latest
 ```
 
 You can then run it as shown below.
@@ -61,6 +73,11 @@ You can then run it as shown below.
 ```bash
 docker run -ti --rm --volume $PWD:/WORK --user $(id -u):$(id -g) \
        ghcr.io/openscms/oscms-ci-docker:latest
+```
+
+```bash
+docker run -ti --rm --volume $PWD:/WORK --user $(id -u):$(id -g) \
+       ghcr.io/openscms/oscms-server-ci-docker:latest
 ```
 
 ## Contributing
